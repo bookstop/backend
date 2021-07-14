@@ -1,3 +1,4 @@
+const readBookSchema = require('./read-book')
 const mongoose = require('../db/connection')
 
 const UserSchema = new mongoose.Schema({
@@ -5,6 +6,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true, },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    readBook: [readBookSchema],
     emailAddress: String
 }, {
     timestamps: true
