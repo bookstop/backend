@@ -48,6 +48,8 @@ router.delete('/:id', async (req, res) => {
 
 // Update Route
 router.put('/:id', async (req, res) => {
+    const passwordHash = bcrypt.hashSync(req.body.password, 10)
+    req.body.password = passwordHash
     try {
         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
         res.status(201).json(updatedUser)
