@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // User Connection To DB
 const UserController = require('./controllers/users')
-// app.use('/users', UserController)
+app.use('/users', UserController)
 
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)
