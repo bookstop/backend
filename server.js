@@ -12,6 +12,9 @@ app.use(express.urlencoded({ extended: true }))
 const UserController = require('./controllers/users')
 app.use('/users', UserController)
 
+const ReadBookController = require('./controllers/read-books')
+app.use('/read-books', ReadBookController)
+
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)
 })
