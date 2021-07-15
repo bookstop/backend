@@ -15,6 +15,9 @@ app.use('/users', UserController)
 const ReadBookController = require('./controllers/read-books')
 app.use('/read-books', ReadBookController)
 
+const WishListController = require('./controllers/wish-lists')
+app.use('/wish-lists', WishListController)
+
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)
 })

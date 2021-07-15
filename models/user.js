@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     readBook: [readBookSchema],
-    wishList: Array,
+    wishList: [wishListSchema],
     emailAddress: String
 }, {
     timestamps: true
