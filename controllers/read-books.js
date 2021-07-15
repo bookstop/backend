@@ -9,8 +9,8 @@ const Book = require('../models/read-book')
 // Index Route
 router.get('/:id', async (req, res) => {
     try {
-        const reviews = await User.findById(req.params.id)
-        res.status(200).json(reviews.readBook)
+        const user = await User.findById(req.params.id)
+        res.status(200).json(user.readBook)
     } catch (error) {
         console.error(error)
     }
@@ -39,17 +39,17 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-// FIX DOWNWARD
-
-router.delete('/:userId/:readBookID', async (req, res) => {
+router.delete('/:readBookID', async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId)
+        const user = await User.findOne({'readBook._id': req.params.readBookID})
 
-        const newReadBooks = user.readBook.filter(book => book._id.toString() !== req.params.readBookID)
+        const newReadBook = user.readBook.filter(book => {
+            return book._id.toString() !== req.params.readBookID
+        })
 
-        const updatedUser = await User.findByIdAndUpdate(req.params.userId, { readBook: newReadBooks }, { new: true })
-
-        res.status(204).json(updatedUser)
+        const newUser = await User.findOneAndUpdate({'readBook._id': req.params.readBookID}, {readBook: newReadBook}, {new: true})
+        
+        res.status(204).json(newUser)
 
     } catch (error) {
         console.error(error)
