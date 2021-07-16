@@ -103,7 +103,6 @@ router.put('/status/:id', async (req, res) => {
                 newReq["lastAccess"]=Date.now();
             }   
         }
-        
         updateParams.push(newReq);
 
         const updatedUser = await User.findByIdAndUpdate(...updateParams, {new: true})
@@ -120,16 +119,16 @@ router.post('/login', async (req, res) => {
         const passwordHash = bcrypt.hashSync(req.body.password, "$2b$10$bookStopAngelicaGHyrgt")
         req.body.password = passwordHash
     
-        // const user = await User.find({username: req.body.username});
-        console.log(req.body.username, req.body.password);
+        // console.log(req.body.username, req.body.password);
         const user = await User.find({'username': req.body.username, 'password': req.body.password,})
         if ( (user[0]) && (user[0].status==='active') ) {
             let updateParams=[user[0]._id];
             let newReq={};
             newReq["lastAccess"]=Date.now();
             updateParams.push(newReq);
+
             const updatedUser = await User.findByIdAndUpdate(...updateParams, {new: true})
-            res.status(200).json(updatedUser);               
+            res.status(200).json(updatedUser);              
         }
         else {
             res.status(401).json({});
