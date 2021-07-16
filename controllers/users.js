@@ -25,20 +25,16 @@ router.get('/:id', async (req, res) => {
         console.error(error)
     }
 })
-// active
-// 
+
 
 // Create Route - create a new user
 router.post('/', async (req, res) => {
     try {
-        const passwordHash = bcrypt.hashSync(req.body.password, 10)
+        const passwordHash = bcrypt.hashSync(req.body.password, "$2b$10$bookStopAngelicaGHyrgt")
         req.body.password = passwordHash
-        const newUserBody = {
-            ...req.body,
-            status: 'active',
-            lastAccess: Date.now()
-        }
-        const newUser = await User.create(newUserBody)
+        if (!req.status) req.status='';
+        if (!req.lastAccess) req.lastAccess=Date.now();
+        const newUser = await User.create(req.body)
         res.status(201).json(newUser)
     } catch (error) {
         res.status(204).json({})
@@ -60,7 +56,7 @@ router.delete('/:id', async (req, res) => {
 // Update Route - update an existing user by ID
 router.put('/:id', async (req, res) => {
     try {
-        const passwordHash = bcrypt.hashSync(req.body.password, 'bookStopAngelicaGH#@2@:GWtyr224')
+        const passwordHash = bcrypt.hashSync(req.body.password, "$2b$10$bookStopAngelicaGHyrgt")
         req.body.password = passwordHash
         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
         res.status(201).json(updatedUser)
@@ -77,6 +73,7 @@ router.put('/:id', async (req, res) => {
 router.get('/status/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
+
         if (user) {
             if (!user.status) user.status='';
             if (!user.lastAccess) user.lastAccess=0;
@@ -117,11 +114,12 @@ router.put('/status/:id', async (req, res) => {
 // Route to Log in user 
 router.post('/login', async (req, res) => {
     try {
-        const passwordHash = bcrypt.hashSync(req.body.password, 'bookStopAngelicaGH#@2@:GWtyr224')
+        const passwordHash = bcrypt.hashSync(req.body.password, "$2b$10$bookStopAngelicaGHyrgt")
         req.body.password = passwordHash
     
-        //const user = await User.find(`{'username':${req.body.username}, 'password':${req.body.password}}`)
-        const user = await User.find({username: req.body.username});
+        // const user = await User.find({username: req.body.username});
+        console.log(req.body.username, req.body.password);
+        const user = await User.find({'username': req.body.username, 'password': req.body.password,})
         if ( (user[0]) && (user[0].status==='active') ) {
             let updateParams=[user[0]._id];
             let newReq={};
