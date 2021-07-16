@@ -32,9 +32,12 @@ router.post('/', async (req, res) => {
     try {
         const passwordHash = bcrypt.hashSync(req.body.password, "$2b$10$bookStopAngelicaGHyrgt")
         req.body.password = passwordHash
-        if (!req.status) req.status='';
-        if (!req.lastAccess) req.lastAccess=Date.now();
-        const newUser = await User.create(req.body)
+        const newUserBody = {
+            ...req.body,
+            status: 'active',
+            lastAccess: Date.now()
+        }
+        const newUser = await User.create(newUserBody)
         res.status(201).json(newUser)
     } catch (error) {
         res.status(204).json({})
