@@ -16,6 +16,17 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// Show Route
+router.get('/book/:id', async (req, res) => {
+    try {
+        const user = await User.findOne({'readBook._id': req.params.id})
+        const book = user.readBook.id(req.params.id)
+        res.status(200).json(book)
+    } catch (error) {
+        console.error
+    }
+})
+
 // Create Route
 router.post('/', async (req, res) => {
     try {
