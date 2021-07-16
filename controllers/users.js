@@ -25,16 +25,20 @@ router.get('/:id', async (req, res) => {
         console.error(error)
     }
 })
-
+// active
+// 
 
 // Create Route - create a new user
 router.post('/', async (req, res) => {
     try {
         const passwordHash = bcrypt.hashSync(req.body.password, 10)
         req.body.password = passwordHash
-        if (!req.status) req.status='';
-        if (!req.lastAccess) req.lastAccess=Date.now();
-        const newUser = await User.create(req.body)
+        const newUserBody = {
+            ...req.body,
+            status: 'active',
+            lastAccess: Date.now()
+        }
+        const newUser = await User.create(newUserBody)
         res.status(201).json(newUser)
     } catch (error) {
         res.status(204).json({})
@@ -56,7 +60,7 @@ router.delete('/:id', async (req, res) => {
 // Update Route - update an existing user by ID
 router.put('/:id', async (req, res) => {
     try {
-        const passwordHash = bcrypt.hashSync(req.body.password, 10)
+        const passwordHash = bcrypt.hashSync(req.body.password, 'bookStopAngelicaGH#@2@:GWtyr224')
         req.body.password = passwordHash
         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
         res.status(201).json(updatedUser)
@@ -113,7 +117,7 @@ router.put('/status/:id', async (req, res) => {
 // Route to Log in user 
 router.post('/login', async (req, res) => {
     try {
-        const passwordHash = bcrypt.hashSync(req.body.password, 10)
+        const passwordHash = bcrypt.hashSync(req.body.password, 'bookStopAngelicaGH#@2@:GWtyr224')
         req.body.password = passwordHash
     
         //const user = await User.find(`{'username':${req.body.username}, 'password':${req.body.password}}`)
