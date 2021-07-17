@@ -78,9 +78,19 @@ router.get('/status/:id', async (req, res) => {
         const user = await User.findById(req.params.id)
 
         if (user) {
+
             if (!user.status) user.status='';
             if (!user.lastAccess) user.lastAccess=0;
-            res.status(200).json(`{ status: ${user.status}, lastAccess: ${user.lastAccess} }`)
+
+            res.status(200).json({ _id: updatedUser._id, 
+                username: updatedUser.username,
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
+                status: updatedUser.status,
+                lastAccess: updatedUser.lastAccess,
+            });
+
+            // res.status(200).json(`{ status: ${user.status}, lastAccess: ${user.lastAccess} }`)
         }
         else {
             res.status(204).json({});
@@ -106,7 +116,15 @@ router.put('/status/:id', async (req, res) => {
         updateParams.push(newReq);
 
         const updatedUser = await User.findByIdAndUpdate(...updateParams, {new: true})
-        res.status(201).json(updatedUser)
+
+        res.status(200).json({ _id: updatedUser._id, 
+            username: updatedUser.username,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            status: updatedUser.status,
+            lastAccess: updatedUser.lastAccess,
+        });
+    
     } catch (error) {
         res.status(204).json({})
         console.error(error)
@@ -128,7 +146,15 @@ router.post('/login', async (req, res) => {
             updateParams.push(newReq);
 
             const updatedUser = await User.findByIdAndUpdate(...updateParams, {new: true})
-            res.status(200).json(updatedUser);              
+ 
+            res.status(200).json({ _id: updatedUser._id, 
+            username: updatedUser.username,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            status: updatedUser.status,
+            lastAccess: updatedUser.lastAccess,
+            });
+
         }
         else {
             res.status(401).json({});
@@ -140,15 +166,28 @@ router.post('/login', async (req, res) => {
 })
 
 // Route to Log out user 
-router.put('/logout/:id', async (req, res) => {
+router.put('/logout/user', async (req, res) => {
     try {
-        let updateParams=[req.params.id];
+        console.log(req.body);
+        let updateParams=[req.body._id];
         let newReq={};
         newReq["lastAccess"]=0;    
         updateParams.push(newReq);
+        console.log(updateParams);
         const updatedUser = await User.findByIdAndUpdate(...updateParams, {new: true})
-        res.status(201).json(updatedUser)
+
+        console.log(updatedUser);
+
+        res.status(200).json({ _id: updatedUser._id, 
+            username: updatedUser.username,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            status: updatedUser.status,
+            lastAccess: updatedUser.lastAccess,
+        });
+
     } catch (error) {
+        console.log("error section");
         res.status(204).json({})
         console.error(error)
     }

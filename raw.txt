@@ -1,0 +1,48 @@
+OPTIONS /users/logout HTTP/1.1
+Host: localhost:4000
+Connection: keep-alive
+Accept: */*
+Access-Control-Request-Method: PUT
+Access-Control-Request-Headers: content-type
+Origin: http://localhost:3000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+Sec-Fetch-Dest: empty
+Referer: http://localhost:3000/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+HTTP/1.1 204 No Content
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+Vary: Access-Control-Request-Headers
+Access-Control-Allow-Headers: content-type
+Content-Length: 0
+Date: Sat, 17 Jul 2021 04:16:08 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+PUT /users/logout HTTP/1.1
+Host: localhost:4000
+Connection: keep-alive
+Content-Length: 10
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://localhost:3000
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:3000/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+{"_id":""}
+HTTP/1.1 204 No Content
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+ETag: W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"
+Date: Sat, 17 Jul 2021 04:16:08 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
