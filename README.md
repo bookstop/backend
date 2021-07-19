@@ -4,23 +4,27 @@ An API for the Book Stop Client, holds the Endpoints that the app will access in
 
     ROUTES:
         User:
-            Index: /users
-            Show: /users/:id
-            Create: /users
-            Delete: /users/:id
-            Update: /users/:id
+            Index: GET /users
+            Show: GET /users/:id
+            Create: POST /users
+            Delete: DELETE /users/:id
+            Update: PUT /users/:id
+            Status: GET /status/:id
+            Update Status: PUT /status/:id
+            Log User In: POST /login
+            Log User Out: PUT /logout/user
         Read Books:
-            Index: /read-books/:userId
-            Show: /read-books/book/:bookId
-            Create: /read-books
-            Update: /read-books/:bookId
-            Delete: /read-books/:bookId
+            Index: GET /read-books/:userId
+            Show: GET /read-books/book/:bookId
+            Create: POST /read-books
+            Update: PUT /read-books/:bookId
+            Delete: DELETE /read-books/:bookId
         Wish Lists:
-            Index: /wish-lists/:userId
-            Show: /wish-lists/book/:bookId
-            Create: /wish-lists
-            Update: /wish-lists/bookId
-            Delete: /wish-lists/bookId
+            Index: GET /wish-lists/:userId
+            Show: GET /wish-lists/book/:bookId
+            Create: POST /wish-lists
+            Update: PUT /wish-lists/bookId
+            Delete: DELETE /wish-lists/bookId
         
 With these routes the API will be able to access the Mongo Database and perform the desired operations.
 
