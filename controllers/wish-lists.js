@@ -61,7 +61,8 @@ router.put('/:bookID', async (req, res) => {
         const book = user.wishList.id(req.params.bookID)
         book.set(req.body)
         user.save()
-        res.status(201).json(user)
+        const newUser = await User.findByIdAndUpdate(user._id, user, {new: true})
+        res.status(201).json(newUser)
     } catch (error) {
         console.error(error)
     }
