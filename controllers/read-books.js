@@ -41,10 +41,14 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const user = await User.findOne({'readBook._id': req.params.id})
+        // console.log(user)
         const book = user.readBook.id(req.params.id)
         book.set(req.body)
+        // console.log(user)
         user.save()
-        res.status(201).json(user)
+        const newUser = await User.findByIdAndUpdate(user._id, user, {new: true})
+        console.log(newUser)
+        res.status(201).json(user) 
     } catch (error) {
         console.error(error)
     }
